@@ -1,0 +1,53 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="../public/jquery-1.4.4.min.js"></script>
+        <script src="jquery.jqpuzzle.full.js"></script>
+        <script src="../public/json2.js"></script>
+        <script src="../public/localStorage.js"></script>
+        <link rel="stylesheet" href="jquery.jqpuzzle.css" type="text/css" media="screen" />
+        <script>
+            
+            $(function(){
+                var mySettings = { 
+                    rows: 3, 
+                    cols: 3, 
+                    success: { 
+                        callback: function(results) {  
+                            alert("你真棒！"); 
+                           
+                        } 
+                    },
+                    moveAct:{
+                        callback:function(results){
+                            alert("fuck ,you can moveable!");
+                        }
+                    } 
+                }; 
+                // define your own texts 
+                var myTexts = { 
+                    secondsLabel: 'Sek.' 
+                }; 
+                // call jqPuzzle with mySettings and myTexts on images with class 'myPics' 
+                $("#pazzle").jqPuzzle(mySettings, myTexts); 
+                
+
+                
+            });
+            
+           
+        </script>
+    </head>
+    <body>
+        <div>
+            <img id="pazzle" src="test.jpg" style="width:400px; height: 400px" />
+
+        </div>
+    </body>
+</html>

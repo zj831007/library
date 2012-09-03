@@ -1,0 +1,222 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <script src="../public/jquery-1.4.4.min.js"></script>
+        <script src="ocanvas-2.0.0.min.js"></script>
+        <script>
+
+            //起始点
+            var llk_srcid = -1;
+            var llk_srcpos = {};
+            var llk_points = [
+                {id:1, type:"image",val:"qa.jpg",x:0,y:0},
+                {id:2, type:"text",val:"猪",x:50,y:50}
+            ];
+            var llk_lines = [];
+            
+            $(function(){
+                var llk_canvas = oCanvas.create({
+                    canvas: "#test",
+                    background: "#fff"
+                });
+                
+                
+                for(var i=0; i<llk_points.length; i++){
+                    
+                }
+                
+                
+                var image = llk_canvas.display.image({
+                    x: 40,
+                    y: 40,
+                    origin: { x: "center", y: "center" },
+                    image: "qa.jpg",
+                    zIndex:"front",
+                });
+                
+                image.bind("click tap",function(e){
+                    this.strokeColor="#00FF00";
+                    this.strokeWidth=2;
+                    e.stopPropagation();
+                    //判断
+                    if(llk_srcid == -1){
+                        llk_srcid = this.id;
+                        llk_srcpos = {x:this.x, y:this.y};
+                    }else{
+                        if(llk_srcid != this.id){
+                            if(!checkLineExist(llk_srcid, this.id)){
+                                drawNewLine(llk_srcid,llk_srcpos, this.id, {x:this.x, y:this.y});
+                            }
+                        }
+                    }
+                });
+//                image.dragAndDrop({
+//                    move:function(){
+//                        updateLine(this.id,{x:this.x, y:this.y});
+//                        llk_canvas.draw.redraw();
+//                    }
+//                });
+//                llk_canvas.addChild(image);
+                
+                var text = llk_canvas.display.text({
+                    x:20,
+                    y:20,
+                    text:"猫",
+                    fill:"#000",
+                    zIndex:"front",
+                    origin: { x: "center", y: "center" }
+                });
+//                text.dragAndDrop({
+//                    move:function(){
+//                        updateLine(this.id,{x:this.x, y:this.y});
+//                        llk_canvas.draw.redraw();
+//                    }
+//                });
+                llk_canvas.addChild(text);
+               
+               
+                text.bind("touchstart", function(e){
+                    console.info("sss");
+                    this.strokeColor="#00FF00";
+                    this.strokeWidth=2;
+                    e.stopPropagation();
+                    //判断
+                    if(llk_srcid == -1){
+                        llk_srcid = this.id;
+                        llk_srcpos = {x:this.x, y:this.y};
+                    }else{
+                        if(llk_srcid != this.id){
+                            //画线 end
+                            if(!checkLineExist(llk_srcid, this.id)){
+                                drawNewLine(llk_srcid,llk_srcpos, this.id, {x:this.x, y:this.y});
+                            }
+                        }
+                    }
+                });
+                
+                llk_canvas.bind("click tap", function(){
+                    llk_srcid = -1; //reset
+                    image.strokeWidth=0;
+                    text.strokeWidth=0;
+                    llk_canvas.draw.redraw();
+                    
+                });
+                
+                /**
+                 *生成最终点数据
+                 */
+                function retriveLlkpoints(){
+                    var objs = llk_canvas.draw.objects;
+                    llk_points = [];
+                    for(var i=0; i<objs.length; i++){
+                        var obj = objs[i];
+                        if(objs[i].type == "image"){
+                            llk_points.push({id:obj.id, type:"image",val:obj.image,x:obj.x, y:obj.y});
+                        }
+                        if(objs[i].type == "text"){
+                            llk_points.push({id:obj.id, type:"text",val:obj.text,x:obj.x, y:obj.y});
+                        }
+                    }
+                }
+                
+                function checkLineExist(ssid, eeid){
+                    var len = llk_lines.length;
+                    for(var i=0; i<len; i++){
+                        var line = llk_lines[i];
+                        var sid = line.sid;
+                        var eid = line.eid;
+                        if((ssid == sid && eeid == eid) ||(ssid == eid && eeid == sid)){
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                /**
+                 * 画新线
+                 */
+                function drawNewLine(sid,spos, eid, epos){
+                    
+                    var linea = llk_canvas.display.line({
+                        start: spos,
+                        end: epos,
+                        stroke: "2px #0aa",
+                        cap: "round",
+                        zIndex:"back",
+                    });
+                    linea.bind("click tap", function(e){
+                        if(sid == llk_srcid || eid == llk_srcid){
+                            llk_srcid = -1;
+                        }
+                        for(var i=0; i<llk_lines.length;i++){
+                            if(llk_lines[i].id == this.id){
+                                llk_lines.splice(i,1);
+                                break;
+                            }
+                        }
+                        llk_canvas.removeChild(this);
+                    });
+                    llk_canvas.addChild(linea);
+                    //将linea添加到数组中
+                    llk_lines.push({id:linea.id, sid:sid, eid:eid});
+                }
+                /*
+                 * 更新线,找出所移动对象所在的线，然后更新线的坐标
+                 * mid 移动对象id
+                 * pos {x:,y:} 移动对象坐标
+                 */
+                function updateLine(mid,pos){
+                    if(pos != null){
+                        var len = llk_lines.length;
+                        for(var i=0; i<len; i++){
+                            var line = llk_lines[i];
+                            var id = line.id;
+                            var sid = line.sid;
+                            var eid = line.eid;
+                            if(mid == sid){
+                                updateLinePoint(id,"s",pos);
+                            }else if(mid = eid){
+                                updateLinePoint(id,"e",pos);
+                            }
+                        }
+                    }
+                }
+                
+                function updateLinePoint(id,type,pos){
+                    var line = getDrawObjectById(id);
+                    if(line != null){
+                        if(type == "e"){
+                            line.end = pos;
+                        }else if(type == "s"){
+                            line.start = pos;
+                        }
+                    }
+                }
+                /**
+                 * 根据id取得显示对象
+                 */
+                function getDrawObjectById(oid){
+                    var objs = llk_canvas.draw.objects;
+                    for(var i=0; i<objs.length; i++){
+                        if(oid == objs[i].id){
+                            return objs[i];
+                        }
+                    }
+                    return null;
+                }
+                
+            });
+            
+        </script>
+    </head>
+    <body>
+        <canvas id="test" width="400" height="400" style="border: 1px solid red;">
+        </canvas>
+    </body>
+</html>

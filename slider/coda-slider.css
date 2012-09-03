@@ -1,0 +1,62 @@
+/*
+	jQuery Coda-Slider v2.0 - http://www.ndoherty.biz/coda-slider
+	Copyright (c) 2009 Niall Doherty
+	This plugin available for use in all personal or commercial projects under both MIT and GPL licenses.
+*/
+
+/* Insignificant stuff, for demo purposes */
+.panel h2.title { margin-bottom: 10px }
+noscript div { background: #ccc; border: 1px solid #900; margin: 20px 0; padding: 15px }
+
+/* Most common stuff you'll need to change */
+.coda-slider-wrapper { padding: 0; margin-bottom: 14px; overflow: hidden;}
+.coda-slider { background: #ebebeb }
+
+/* Use this to keep the slider content contained in a box even when JavaScript is disabled */
+.coda-slider-no-js .coda-slider {overflow: auto !important; padding-right: 20px }
+
+/* Change the width of the entire slider (without dynamic arrows) */
+.coda-slider, .coda-slider .panel {} 
+
+/* Change margin and width of the slider (with dynamic arrows) */
+.coda-slider-wrapper.arrows .coda-slider, .coda-slider-wrapper.arrows .coda-slider .panel { }
+.coda-slider-wrapper.arrows .coda-slider { margin: 0; }
+
+/* Arrow styling */
+.coda-nav-left a, .coda-nav-right a {
+	/*padding: 0 6px;*/
+	/*border: 1px solid #333;*/	
+}
+
+/* Tab nav */
+.coda-nav ul li a.current {
+
+}
+
+/* Panel padding */
+.coda-slider .panel-wrapper { padding: 0;}
+
+/* Preloader */
+.coda-slider p.loading { padding: 20px; text-align: center }
+
+/* Don't change anything below here unless you know what you're doing */
+/* Tabbed nav */
+.coda-nav ul { margin: 0 auto; list-style-type: none; }
+.coda-nav ul li { float: left; }
+.coda-nav ul li a { display: block; color: #fff; text-decoration: none; text-align: center; margin: 7px 3px; padding: 7px 9px;}
+.coda-nav li a:link, .coda-nav li a:visited {}
+.coda-nav li a:over {}
+
+/* Miscellaneous */
+.coda-slider-wrapper { clear: both; overflow: auto; position: relative;}
+.coda-slider { margin: 0 auto !important; overflow: hidden; position: relative }
+.coda-slider .panel { display: block; float: left }
+.coda-slider .panel-container { position: relative }
+.coda-nav-left, .coda-nav-right {position:absolute; z-index: 100;}
+.coda-nav-left {}
+.coda-nav-right {}
+.coda-nav { position: relative;	z-index: 100; left: 0; text-align: center; padding: 4px 0;}
+.coda-nav-left a, .coda-nav-right a { display: block; text-align: center; text-decoration: none }
+
+
+

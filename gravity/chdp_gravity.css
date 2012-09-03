@@ -1,0 +1,9 @@
+.viewport {	
+	-webkit-perspective: 10000;
+	-webkit-perspective-origin: center center;
+}
+
+.cube{
+	-webkit-transition: -webkit-transform 50ms linear;
+	-webkit-transform-style: preserve-3d;
+}

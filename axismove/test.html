@@ -1,0 +1,48 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="../public/jquery-1.4.4.min.js"></script>
+        <script src="../public/fabric.min.js"></script>
+        <script>
+            $(function(){
+                var canvas = new fabric.Canvas("test",{
+                    selection: false,
+                    backgroundImageStretch:true
+                });
+                //canvas.backgroundImageStretch = true;
+                //canvas.setBackgroundImage("t.jpg", canvas.renderAll.bind(canvas));
+                
+                fabric.Image.fromURL('460.jpg', function(img) {
+                    oImg = img.set({ left: img.width/2, top: img.height/2});
+                    oImg.selectable  = false;
+                    //oImg.filters[1] = new fabric.Image.filters.Invert() ;
+                    //oImg.applyFilters(canvas.renderAll.bind(canvas));
+                    canvas.add(oImg);
+                    canvas.renderAll();
+                });
+                
+                //canvas.setOverlayImage("t.jpg",function(img){
+                //console.info(img);
+                // img.setOpacity(0.3);
+                // canvas.renderAll();
+                // })
+                
+                canvas.clipTo = function(ctx) {
+                    ctx.rect(100, 100, 600, 100);
+                };
+                canvas.renderAll();
+            })
+            
+           
+        </script>
+    </head>
+    <body>
+        <canvas id="test" width="460" height="613" style="background-image: url(t.jpg); "></canvas>
+    </body>
+</html>

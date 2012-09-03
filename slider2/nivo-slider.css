@@ -1,0 +1,218 @@
+/*
+ * jQuery Nivo Slider v2.7.1
+ * http://nivo.dev7studios.com
+ *
+ * Copyright 2011, Gilbert Pellegrom
+ * Free to use and abuse under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ * 
+ * March 2010
+ */
+
+.slider-wrapper {
+   -webkit-perspective: 1000;
+   z-index:1;
+   position:absolute;
+}
+
+.nivo_show{
+	position:absolute;
+	background:#fff url(loading.gif) no-repeat 50% 50%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover; 
+	-o-background-size: cover; 
+	background-size: cover;
+}
+
+.nivo_subcontainer{
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition: all 1.0s ease-in-out;
+	-moz-transform-style: preserve-3d;
+	-moz-transition: all 1.0s linear;
+	transform-style: preserve-3d;
+	transition: all 1.0s linear;
+}
+
+.face {
+	/*visibility: visible;*/
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-background-clip:padding-box;
+}
+.back {
+	/*visibility: visible;*/
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+	
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+	-o-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+
+/* The Nivo Slider styles */
+.nivoSlider {
+	position:relative;
+	/*margin-bottom:50px;*/
+	-webkit-box-shadow: 0px 1px 5px 0px #4a4a4a;
+	-moz-box-shadow: 0px 1px 5px 0px #4a4a4a;
+	box-shadow: 0px 1px 5px 0px #4a4a4a;
+}
+
+.nivoSlider img {
+	position:absolute;
+	top:0px;
+	left:0px;
+	display:none;
+}
+.nivoSlider a {
+	border:0;
+	display:block;
+}
+/* If an image is wrapped in a link */
+.nivoSlider a.nivo-imageLink {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	z-index:6;
+	display:none;
+}
+/* The slices and boxes in the Slider */
+.nivo-slice {
+	display:block;
+	position:absolute;
+	z-index:5;
+	height:100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover; 
+	-o-background-size: cover; 
+	background-size: cover;
+}
+.nivo-box {
+	display:block;
+	position:absolute;
+	z-index:5;
+}
+/* Caption styles */
+.nivo-caption {
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	background:#000;
+	color:#fff;
+	opacity:0.8; /* Overridden by captionOpacity setting */
+	width:100%;
+	z-index:8;
+}
+.nivo-caption {
+	font-family: Helvetica, Arial, sans-serif;
+}
+.nivo-caption p {
+	padding:5px;
+	margin:0;
+}
+.nivo-caption a {
+	display:inline !important;
+}
+.nivo-caption a {
+	color:#fff;
+	border-bottom:1px dotted #fff;
+}
+.nivo-caption a:hover {
+	color:#fff;
+}
+.nivo-html-caption {
+    display:none;
+}
+/* Direction nav styles (e.g. Next & Prev) */
+.nivo-directionNav a {
+	position:absolute;
+	top:45%;
+	z-index:9;
+	cursor:pointer;
+	display:block;
+	text-indent:-9999px;
+	border:0;
+	width:30px;
+	height:30px;
+	background:url(arrow_left.png) no-repeat;
+}
+
+.nivo-directionNav .nivo-prevNav {
+	left:12px;
+}
+.nivo-directionNav .nivo-nextNav {
+	right:12px;
+}
+
+a.nivo-nextNav {
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg) ;
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);	
+}
+/* Control nav styles (e.g. 1,2,3...) */
+.nivo-controlNav {
+	position:absolute;
+}
+.nivo-controlNav a {
+	position:relative;
+	z-index:9;
+	cursor:pointer;
+}
+
+.nivo-controlNav a{
+	display:block;			
+	border:0;
+	float:left;
+
+	-moz-border-radius: 17px;
+	-khtml-border-radius: 17px;
+	-webkit-border-radius: 17px;
+	border-radius: 17px;
+
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5); 
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5); 
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25); 
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+
+	text-decoration: none;
+	text-align: center;
+}
+
+.nivo-controlNav a.active {
+	font-weight:bold;
+}
+
+.normal {
+	height: 17px;			
+	width: 17px;
+	margin: 7px 3px!important;
+	/*padding: 2px */
+}
+.small {
+	height: 15px;
+	width: 15px;
+	margin: 7px 3px !important;;
+	/*padding: 0px !important;*/
+	font-size: 11px;
+}
+.large {	
+	width:19px;
+	height:19px;
+	margin: 7px 3px !important;;
+	font: 14px/1.6 Arial;
+}

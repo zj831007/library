@@ -1,0 +1,31 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+/*body{
+   overflow:hidden;
+}*/
+
+.icon{
+	position: relative;
+	width : 50px;
+	height: 50px;
+	border: 1px solid #dedede; 
+	-moz-border-radius: 25px; 
+	-webkit-border-radius: 25px; 
+	margin: 0 auto;
+
+}
+
+.arrow_updown{
+	 bottom:70%;
+}
+
+.arrow_leftright{
+	bottom:40%;
+	-moz-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-o-transform: rotate(90deg) ;
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}

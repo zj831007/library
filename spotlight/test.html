@@ -1,0 +1,36 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="../public/jquery-1.4.4.min.js"></script>
+        <script src="../public/fabric.min.js"></script>
+        <script>
+            $(function(){
+                var canvas = new fabric.Canvas("test",{
+                    selection: false,
+                    backgroundImageStretch:true
+                });
+                fabric.Image.fromURL('imgmask.jpg', function(img) {
+                    oImg = img.set({ left: img.width/2, top: img.height/2});
+                    oImg.selectable  = false;
+                    oImg.filters[1] = new fabric.Image.filters.Invert() ;
+                    oImg.applyFilters(canvas.renderAll.bind(canvas));
+                    canvas.add(oImg);
+                });
+                canvas.clipTo = function(ctx) {
+                    ctx.arc(100, 60, 60, 0, Math.PI*2, true);
+                };
+                canvas.renderAll();
+            })
+        </script>
+    </head>
+    <body>
+        <canvas id="test" width="200" height="200"  style="background-color: #000"></canvas>
+
+    </body>
+</html>
